@@ -143,7 +143,7 @@ def process():
 
     train_data_scaled.to_csv(os.path.join(save_dir, 'train_scaled.csv'), index=None)
     test_data_scaled.to_csv(os.path.join(save_dir, 'test_scaled.csv'), index=None)
-    train_scaled_01.to_csv(os.path.join(save_dir, 'test_scaled_01.csv'), index=None)
+    train_scaled_01.to_csv(os.path.join(save_dir, 'train_scaled_01.csv'), index=None)
     test_scaled_01.to_csv(os.path.join(save_dir, 'test_scaled_01.csv'), index=None)
 
 parser = argparse.ArgumentParser()
