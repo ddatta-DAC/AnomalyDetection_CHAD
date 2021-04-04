@@ -1,0 +1,132 @@
+
+'save_dir': './../generated_data_v1'
+'DIR': 'us_import1'
+'train_data_file': 'train_data.csv'
+'test_data_file': 'test_data.csv'
+'id_col': 'PanjivaRecordID'
+'num_jobs': 16
+'hscode_col': 'HSCode'
+'freq_bound_ABSOLUTE' : 10
+'freq_bound_PERCENTILE' : 5 
+'num_neg_samples' : 10
+
+numeric_columns:
+    - VolumeTEU
+    - Quantity 
+    - WeightKg 
+    - NumberOfContainers
+categorical_columns:
+    - Carrier
+    - HSCode
+    - PortOfLading
+    - PortOfUnlading
+    - ShipmentDestination
+    - ShipmentOrigin
+   
+'us_import1':
+  'use_cols':
+    - PanjivaRecordID
+    - Carrier
+    - ShipmentOrigin
+    - ShipmentDestination
+    - PortOfUnlading
+    - PortOfLading
+    - HSCode
+    - VolumeTEU
+    - Quantity 
+    - WeightKg 
+    - NumberOfContainers
+  'column_value_filters':
+    'Carrier':
+      - '(Usa))'
+  'low_freq_bound': 5
+
+'us_import2':
+  'use_cols':
+    - PanjivaRecordID
+    - Carrier
+    - ShipmentOrigin
+    - ShipmentDestination
+    - PortOfUnlading
+    - PortOfLading
+    - HSCode
+    - VolumeTEU
+    - Quantity 
+    - WeightKg 
+    - NumberOfContainers
+  'column_value_filters':
+    'Carrier':
+      - '(Usa))'
+  'low_freq_bound': 5
+  
+'us_import3':
+  'use_cols':
+    - PanjivaRecordID
+    - Carrier
+    - ShipmentOrigin
+    - ShipmentDestination
+    - PortOfUnlading
+    - PortOfLading
+    - HSCode
+    - VolumeTEU
+    - Quantity 
+    - WeightKg 
+    - NumberOfContainers
+  'column_value_filters':
+    'Carrier':
+      - '(Usa))'
+  'low_freq_bound': 5
+
+'us_import4':
+  'use_cols':
+    - PanjivaRecordID
+    - Carrier
+    - ShipmentOrigin
+    - ShipmentDestination
+    - PortOfUnlading
+    - PortOfLading
+    - HSCode
+    - VolumeTEU
+    - Quantity 
+    - WeightKg 
+    - NumberOfContainers
+  'column_value_filters':
+    'Carrier':
+      - '(Usa))'
+  'low_freq_bound': 5
+
+'us_import5':
+  'use_cols':
+    - PanjivaRecordID
+    - Carrier
+    - ShipmentOrigin
+    - ShipmentDestination
+    - PortOfUnlading
+    - PortOfLading
+    - HSCode
+    - VolumeTEU
+    - Quantity 
+    - WeightKg 
+    - NumberOfContainers
+  'column_value_filters':
+    'Carrier':
+      - '(Usa))'
+  'low_freq_bound': 5
+  
+'us_import6':
+  'use_cols':
+    - PanjivaRecordID
+    - Carrier
+    - ShipmentOrigin
+    - ShipmentDestination
+    - PortOfUnlading
+    - PortOfLading
+    - HSCode
+    - VolumeTEU
+    - Quantity 
+    - WeightKg 
+    - NumberOfContainers
+  'column_value_filters':
+    'Carrier':
+      - '(Usa))'
+  'low_freq_bound': 5
