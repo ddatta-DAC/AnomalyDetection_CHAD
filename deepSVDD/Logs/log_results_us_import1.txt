@@ -1,0 +1,18 @@
+Log start :: 2021-04-04 17:10:50.224076
+2021-04-04 17:10:50.224186| Time stamp 1617570650.2241917
+us_import1
+Log start :: 2021-04-04 17:13:50.615739
+2021-04-04 17:13:50.615944| Time stamp 1617570830.6159563
+us_import1
+Log start :: 2021-04-04 17:14:16.337341
+2021-04-04 17:14:16.337450| Time stamp 1617570856.3374553
+us_import1
+{'layer_dims': [256, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
+Log start :: 2021-04-04 17:15:04.623947
+2021-04-04 17:15:04.624062| Time stamp 1617570904.624067
+us_import1
+{'layer_dims': [256, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
+Log start :: 2021-04-04 17:17:51.329843
+2021-04-04 17:17:51.329980| Time stamp 1617571071.329986
+us_import1
+{'layer_dims': [256, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
