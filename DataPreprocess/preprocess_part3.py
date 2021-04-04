@@ -109,7 +109,7 @@ def perturb_row(
     perturb_cat_cols = 2, 
     perturb_numeric_cols = 1 
 ):
-    global categorical_columns, numeric_columns, domain_dims
+    global categorical_columns, numeric_columns, domain_dims, ID_COL
   
     row = row.copy()
     pert_cat_cols = np.random.choice( 
@@ -131,9 +131,10 @@ def perturb_row(
         else:
             val -= np.random.uniform(0.25,0.75) 
         row[nc] = val
+    row[ID_COL] = int( str( int(row[ID_COL])) + '001')
     return row
 
-
+# --------------------------------------------------
 def process():
     global categorical_columns
     test_data = pd.read_csv(os.path.join(save_dir, 'test_data_scaled.csv'))
