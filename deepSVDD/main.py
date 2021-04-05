@@ -68,7 +68,7 @@ def main(
     
     train_df = data_dict['train']
     try:
-        train_df[ID_COL]
+        del train_df[ID_COL]
     except:
         pass
     
@@ -97,7 +97,7 @@ def main(
 
     test_df = data_dict['test']
     try:
-        test_df[ID_COL]
+        del test_df[ID_COL]
     except:
         pass
     test_X = test_df.values
@@ -109,12 +109,13 @@ def main(
 
     for idx in range(num_anomaly_sets):
         key = 'anom_' + str(idx + 1)
-        anom_df = data_dict[key].values
+        anom_df = data_dict[key]
         try:
-            anom_df[ID_COL]
+            del anom_df[ID_COL]
         except:
             pass
-        anom_X = anom_df.shape
+        
+        anom_X = anom_df.values
         anom_labels = [1 for _ in range(anom_X.shape[0])]
         anom_scores = deep_SVDD.test(anom_X)
 
@@ -187,7 +188,7 @@ def main(
 
 parser = argparse.ArgumentParser(description='Run the model ')
 parser.add_argument(
-    '--DATA_SET',
+    '--DIR',
     type=str,
     help=' Which data set ?',
     default='us_import1',
@@ -207,7 +208,7 @@ parser.add_argument(
 )
 
 args = parser.parse_args()
-DATA_SET = args.DATA_SET
+DATA_SET = args.DIR
 num_runs = args.num_runs
 nu = args.nu
 LOG_FILE = 'log_results_{}.txt'.format(DATA_SET)
@@ -251,8 +252,8 @@ mean_aupr2, std2 = main(
 )
 
 
-LOGGER.info('AuPR  Objective {} Mean {:4f}  Std {:4f}'.format(num_runs, 'one-class', mean_aupr1,  std1))
-LOGGER.info('AuPR  Objective {} Mean {:4f}  Std {:4f}'.format(num_runs, 'soft-boundary', mean_aupr2,  std2))
+LOGGER.info('AuPR  Objective {} Mean {:.4f}  Std {:.4f}'.format(num_runs, 'one-class', mean_aupr1,  std1))
+LOGGER.info('AuPR  Objective {} Mean {:.4f}  Std {:.4f}'.format(num_runs, 'soft-boundary', mean_aupr2,  std2))
 utils.close_logger(LOGGER)
 
 

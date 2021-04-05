@@ -16,3 +16,55 @@ Log start :: 2021-04-04 17:17:51.329843
 2021-04-04 17:17:51.329980| Time stamp 1617571071.329986
 us_import1
 {'layer_dims': [256, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
+Log start :: 2021-04-04 17:57:40.829066
+2021-04-04 17:57:40.829245| Time stamp 1617573460.829257
+us_import1
+{'layer_dims': [256, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
+Log start :: 2021-04-04 18:10:18.295965
+2021-04-04 18:10:18.296075| Time stamp 1617574218.2960808
+us_import1
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
+Log start :: 2021-04-04 18:23:14.509894
+2021-04-04 18:23:14.510002| Time stamp 1617574994.5100067
+us_import1
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
+Log start :: 2021-04-04 18:24:59.902998
+2021-04-04 18:24:59.903108| Time stamp 1617575099.9031138
+us_import1
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
+Log start :: 2021-04-04 18:25:29.756915
+2021-04-04 18:25:29.757027| Time stamp 1617575129.757032
+us_import1
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
+Log start :: 2021-04-04 18:25:57.699362
+2021-04-04 18:25:57.699574| Time stamp 1617575157.6995852
+us_import1
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
+Log start :: 2021-04-04 18:27:18.200905
+2021-04-04 18:27:18.201059| Time stamp 1617575238.2010646
+us_import1
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.1}
+Log start :: 2021-04-04 18:46:43.766799
+2021-04-04 18:46:43.767042| Time stamp 1617576403.7670543
+us_import1
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.1}
+Log start :: 2021-04-04 18:59:12.217378
+2021-04-04 18:59:12.217492| Time stamp 1617577152.2174985
+us_import1
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.1}
+Log start :: 2021-04-04 19:00:22.805522
+2021-04-04 19:00:22.805731| Time stamp 1617577222.8057427
+us_import1
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.01}
+Log start :: 2021-04-04 19:59:23.907199
+2021-04-04 19:59:23.907308| Time stamp 1617580763.9073133
+us_import1
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.01}
+Log start :: 2021-04-04 20:29:15.488704
+2021-04-04 20:29:15.488850| Time stamp 1617582555.488856
+us_import1
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.01}
+Log start :: 2021-04-04 20:59:00.793217
+2021-04-04 20:59:00.793363| Time stamp 1617584340.7933693
+us_import1
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.01}

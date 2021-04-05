@@ -53,7 +53,7 @@ def get_data(
         }
         for i in range(0,num_anom_sets):
             _df = anom_data.sample(n=anom_size)
-            df_dict['anom_' + str(i)] = _df
+            df_dict['anom_' + str(i+1)] = _df
 
     meta_data = pd.read_csv(
         os.path.join(DATA_LOC, 'data_dimensions.csv'),
