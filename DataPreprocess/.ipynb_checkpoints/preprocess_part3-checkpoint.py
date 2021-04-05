@@ -143,8 +143,8 @@ def process():
         anomalies.loc[:,c] = anomalies[c].astype(int)
     anomalies_oneHot = create_oneHot_version( anomalies )
     
-    anomalies.to_csv(os.path.join(save_dir, 'anomalies.csv'))
-    anomalies_oneHot.to_csv(os.path.join(save_dir, 'anomalies_oneHot.csv'))
+    anomalies.to_csv(os.path.join(save_dir, 'anomalies.csv'),index=None)
+    anomalies_oneHot.to_csv(os.path.join(save_dir, 'anomalies_oneHot.csv'),index=None)
     return 
 
 

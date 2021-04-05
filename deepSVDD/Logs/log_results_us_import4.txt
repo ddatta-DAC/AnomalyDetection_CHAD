@@ -1,0 +1,4 @@
+Log start :: 2021-04-04 20:59:00.752062
+2021-04-04 20:59:00.752246| Time stamp 1617584340.752255
+us_import4
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.01}

@@ -5,12 +5,16 @@ import numpy as np
 import pickle
 import yaml
 from joblib import Parallel, delayed
-from sklearn.preprocessor import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 import multiprocessing as mp
 from tqdm import tqdm
 from pathlib import Path
 import argparse
+from collections import OrderedDict
+import warnings
+import numpy as np
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
 domain_dims = None
@@ -24,14 +28,14 @@ freq_bound = None
 save_dir = None
 categorical_columns = None
 numeric_columns = None
-
+P = []
 
 def get_domain_dims():
     global DIR
     global save_dir
     global domain_dims
     with open(os.path.join(save_dir, 'domain_dims.pkl'), 'rb') as fh:
-        domain_dims = pickle.load(fh)
+        domain_dims = OrderedDict(pickle.load(fh))
     return
 
 
@@ -48,7 +52,8 @@ def set_up_config(_DIR=None):
     global ID_COL
     global numeric_columns
     global categorical_columns, numeric_columns
-
+    global P
+    
     with open(CONFIG_FILE) as f:
         CONFIG = yaml.safe_load(f)
 
@@ -60,11 +65,11 @@ def set_up_config(_DIR=None):
     numeric_columns = list(sorted(CONFIG['numeric_columns']))
     categorical_columns = list(sorted(CONFIG['categorical_columns']))
     ID_COL = 'PanjivaRecordID'
-    DIR_LOC = re.sub('[0-9]', '', DIR)
     save_dir = CONFIG['save_dir']
 
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
+        
     save_dir = os.path.join(
         CONFIG['save_dir'],
         DIR
@@ -82,6 +87,10 @@ def set_up_config(_DIR=None):
     _cols = list(use_cols)
     _cols.remove(ID_COL)
     get_domain_dims()
+    
+    P = [np.power( dim / sum(domain_dims.values()), 0.75) for dom,dim in domain_dims.items()]
+    P = [_ / sum(P) for _ in P]
+   
     return
 
 
@@ -90,9 +99,10 @@ def aux_gen(
         column_encoder,
         num_samples=10
 ):
-    global categorical_columns, numeric_columns
+    global categorical_columns, numeric_columns, P
     row_vals = row.values
     num_cat = len(categorical_columns)
+    
     num_real_dims = len(numeric_columns)
     real_part = row_vals[-num_real_dims:]
     cat_part = row_vals[:num_cat]
@@ -123,8 +133,7 @@ def aux_gen(
     # For categorical variables
     # ------------------------------
 
-    P = [np.power(_ / sum(categorical_columns), 0.75) for _ in categorical_columns]
-    P = [_ / sum(P) for _ in P]
+   
     part_c_duplicated = np.tile(cat_part, ns).reshape([ns, num_cat])
 
     for i in range(ns):
@@ -147,6 +156,7 @@ def aux_gen(
         part_c_duplicated[i] = _copy
 
     _samples = np.concatenate([part_c_duplicated, part_r_duplicated], axis=1)
+
     row_vals = np.reshape(row.values, [1, -1])
 
     samples = np.concatenate([row_vals, _samples], axis=0)
@@ -155,7 +165,6 @@ def aux_gen(
 
     # =========================
     # Do a 1-hot transformation
-    # Drop binary columns
     # =========================
 
     onehot_xformed = column_encoder.fit_transform(
@@ -190,12 +199,12 @@ def generate_pos_neg_data(
 
     oh_encoder_list = []
     idx = 0
-    for _, dim in domain_dims.items():
+    for domain , dim in domain_dims.items():
         name = "oh_" + str(idx)
         oh_encoder = OneHotEncoder(
-            np.reshape(list(range(dim)), [1, -1]),
+            np.reshape(np.arange(dim, dtype=int), [1, -1]),
             sparse=False,
-            drop=False
+            drop=None
         )
         oh_encoder_list.append((name, oh_encoder, [idx]))
         idx += 1
@@ -203,11 +212,10 @@ def generate_pos_neg_data(
         oh_encoder_list
     )
 
-    discrete_dim_list = list(domain_dims.values())
     n_jobs = mp.cpu_count()
 
     res = Parallel(n_jobs)(delayed(aux_gen)(
-        row, discrete_dim_list, num_real, column_encoder, num_samples
+        row, column_encoder, num_samples
     ) for i, row in tqdm(train_df.iterrows(), total=train_df.shape[0])
                            )
     pos = []
@@ -229,8 +237,8 @@ def generate(
     # Save files
     global save_dir, DIR, domain_dims
 
-    train_df = pd.read_csv(save_dir,'train_scaled.csv',index_col=None)
-    result_save_dir = os.path.join('model_data')
+    train_df = pd.read_csv(os.path.join(save_dir,'train_scaled.csv'), index_col=None)
+    result_save_dir = os.path.join(save_dir, 'model_data')
     Path(result_save_dir).mkdir(exist_ok=True,parents=True)
 
     path_obj = Path(save_dir)

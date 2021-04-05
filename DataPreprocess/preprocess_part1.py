@@ -139,15 +139,15 @@ def get_regex(_type):
         
     if DIR == 'us_import4':
         if _type == 'train':
-            return '.*0[4-4]_2016.csv'
+            return '.*0[4-5]_2016.csv'
         if _type == 'test':
             return '.*0[6]_2016.csv'
     
     if DIR == 'us_import5':
         if _type == 'train':
-            return '.*0[6-7]_2017.csv'
+            return '.*0[1-2]_2017.csv'
         if _type == 'test':
-            return '.*0[8]_2017.csv'
+            return '.*0[3]_2017.csv'
     
     if DIR == 'us_import6':
         if _type == 'train':
@@ -414,13 +414,13 @@ def create_train_test_sets():
 
     # --- Later on - remove using the saved file ---- #
 
-    if os.path.exists(train_df_file) and os.path.exists(test_df_file):
+    if os.path.exists(train_df_file) and os.path.exists(test_df_file) :
         train_df = pd.read_csv(train_df_file)
         test_df = pd.read_csv(test_df_file)
         with open(column_valuesId_dict_path, 'rb') as fh:
             col_val2id_dict = pickle.load(fh)
 
-        return train_df, test_df, col_val2id_dict
+#         return train_df, test_df, col_val2id_dict
 
     train_df = clean_train_data()
     train_df = order_cols(train_df)

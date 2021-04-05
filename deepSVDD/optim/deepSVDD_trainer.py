@@ -74,7 +74,7 @@ class DeepSVDDTrainer():
                 _loss = F.mse_loss(
                     _x0,_x1,reduction='none'
                 )
-                _loss = torch.sum(_loss,dim=-1,keepdim=False)
+                _loss = torch.sum(_loss, dim=-1, keepdim=False)
                 _loss = torch.mean(_loss,dim=0)
                 _loss.backward()
                 opt_ae.step()
