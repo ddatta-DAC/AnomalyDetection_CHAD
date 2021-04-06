@@ -1,61 +1,12 @@
-kddcup:
-  layer_dims:
-    - 60
-    - 30
-    - 10
-  anomaly_ratio : 0.2
-  num_anomaly_sets : 5
-  epochs_1: 10
-  epochs_2: 20
-  k: 5
-  batch_size : 512
+layer_dims:
+  - 512
+  - 128
+  - 32
+anomaly_ratio : 0.5
+num_anomaly_sets : 5
+epochs_1: 50
+epochs_2: 25
+k: 5
+batch_size : 512
 
-kddcup_neptune:
-  layer_dims:
-    - 60
-    - 30
-    - 10
-  anomaly_ratio : 0.2
-  num_anomaly_sets : 5
-  epochs_1: 10
-  epochs_2: 20
-  k: 4
-  batch_size : 512
-
-nb15:
-  layer_dims:
-    - 60
-    - 30
-    - 10
-  anomaly_ratio : 0.1
-  num_anomaly_sets : 5
-  epochs_1: 10
-  epochs_2: 20
-  k: 3
-  batch_size : 512
-
-
-nsl_kdd:
-  layer_dims:
-    - 60
-    - 30
-    - 10
-  anomaly_ratio : 0.1
-  num_anomaly_sets : 5
-  epochs_1: 10
-  epochs_2: 20
-  k: 3
-  batch_size : 512
-
-gureKDD:
-  layer_dims:
-    - 40
-    - 20
-    - 10
-  anomaly_ratio : 0.1
-  num_anomaly_sets : 5
-  epochs_1: 10
-  epochs_2: 20
-  k: 5
-  batch_size : 512
 

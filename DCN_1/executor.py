@@ -178,13 +178,13 @@ parser.add_argument(
     type=str,
     help=' Which data set ?',
     default=None,
-    choices=['kddcup', 'kddcup_neptune', 'nsl_kdd', 'nb15','gureKDD']
+    choices=['us_import1', 'us_import2', 'us_import3', 'us_import4','us_import5', 'us_import6']
 )
 
 parser.add_argument(
     '--num_runs',
     type=int,
-    default=5,
+    default=10,
     help='Number of runs'
 )
 
@@ -210,7 +210,6 @@ for n in range(1,num_runs+1):
         num_anom_sets=num_anomaly_sets,
         anomaly_ratio=anomaly_ratio
     )
-
     dcn_obj = train_model(DATA_SET, data_dict, config)
     mean_aupr, std = test_eval(dcn_obj, data_dict, num_anomaly_sets)
 
