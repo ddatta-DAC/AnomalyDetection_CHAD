@@ -1,0 +1,12 @@
+layer_dims:
+  - 512
+  - 128
+  - 32
+anomaly_ratio : 0.5
+num_anomaly_sets : 5
+epochs_1: 50
+epochs_2: 25
+k: 5
+batch_size : 512
+
+
