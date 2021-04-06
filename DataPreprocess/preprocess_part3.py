@@ -117,7 +117,6 @@ def perturb_row(
         row[col] = np.random.choice(np.arange(domain_dims[col], dtype=int ), 1)
    
     # Select a numeric column 
-    
     numeric_cols = np.random.choice( numeric_columns , size = perturb_numeric_cols, replace = False)
     for nc in numeric_cols:
         val = row[nc]
@@ -133,13 +132,21 @@ def perturb_row(
 def process():
     global categorical_columns
     test_data = pd.read_csv(os.path.join(save_dir, 'test_data_scaled.csv'))
-    anomalies = test_data.parallel_apply( perturb_row, axis= 1)
+    anomalies = test_data.parallel_apply( perturb_row, axis= 1, args=(1,1, ))
     for c in categorical_columns:
         anomalies.loc[:,c] = anomalies[c].astype(int)
     anomalies_oneHot = create_oneHot_version( anomalies )
     
-    anomalies.to_csv(os.path.join(save_dir, 'anomalies.csv'),index=None)
-    anomalies_oneHot.to_csv(os.path.join(save_dir, 'anomalies_oneHot.csv'),index=None)
+    anomalies.to_csv(os.path.join(save_dir, 'anomalies_2.csv'),index=None)
+    anomalies_oneHot.to_csv(os.path.join(save_dir, 'anomalies_2_oneHot.csv'),index=None)
+    
+    
+    anomalies = test_data.parallel_apply( perturb_row, axis= 1, args=(2,1, ))
+    for c in categorical_columns:
+        anomalies.loc[:,c] = anomalies[c].astype(int)
+    anomalies_oneHot = create_oneHot_version( anomalies )
+    anomalies.to_csv(os.path.join(save_dir, 'anomalies_3.csv'),index=None)
+    anomalies_oneHot.to_csv(os.path.join(save_dir, 'anomalies_3_oneHot.csv'),index=None)
     return 
 
 
