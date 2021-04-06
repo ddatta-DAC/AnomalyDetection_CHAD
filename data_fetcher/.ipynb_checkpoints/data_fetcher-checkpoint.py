@@ -31,7 +31,8 @@ def get_data(
     if one_hot is False:
         train_df = pd.read_csv(os.path.join(DATA_LOC, 'train_scaled.csv'), index_col=None)
         test_df = pd.read_csv(os.path.join(DATA_LOC, 'test_scaled.csv'), index_col=None)
-        anom_data = pd.read_csv(os.path.join(DATA_LOC, 'anomalies.csv'), index_col=None)
+        anom_2_data = pd.read_csv(os.path.join(DATA_LOC, 'anomalies_2.csv'), index_col=None)
+        anom_3_data = pd.read_csv(os.path.join(DATA_LOC, 'anomalies_3.csv'), index_col=None)
         anom_size = int(anomaly_ratio * len(test_df))
         df_dict = {
             'train': train_df,
@@ -39,22 +40,29 @@ def get_data(
         }
 
         for i in range(0,num_anom_sets):
-            _df = anom_data.sample(n=anom_size)
-            df_dict['anom_' + str(i)] = _df
+            _df = anom_2_data.sample(n=anom_size)
+            df_dict['anom_2' + str(i)] = _df
+        for i in range(0,num_anom_sets):
+            _df = anom_3_data.sample(n=anom_size)
+            df_dict['anom_3' + str(i)] = _df
     else:
-
         train_df = pd.read_csv(os.path.join(DATA_LOC, 'train_scaled_01.csv'), index_col=None)
         test_df = pd.read_csv(os.path.join(DATA_LOC, 'test_scaled_01.csv'), index_col=None)
-        anom_data = pd.read_csv(os.path.join(DATA_LOC, 'anomalies_oneHot.csv'), index_col=None)
+        anom_data_2 = pd.read_csv(os.path.join(DATA_LOC, 'anomalies_2_oneHot.csv'), index_col=None)
+        anom_data_3 = pd.read_csv(os.path.join(DATA_LOC, 'anomalies_3_oneHot.csv'), index_col=None)
+
         anom_size = int(anomaly_ratio * len(test_df))
         df_dict = {
             'train': train_df,
             'test': test_df,
         }
         for i in range(0,num_anom_sets):
-            _df = anom_data.sample(n=anom_size)
-            df_dict['anom_' + str(i)] = _df
-
+            _df = anom_data_2.sample(n=anom_size)
+            df_dict['anom_2' + str(i+1)] = _df
+            
+        for i in range(0,num_anom_sets):
+            _df = anom_data_2.sample(n=anom_size)
+            df_dict['anom_3' + str(i+1)] = _df    
     meta_data = pd.read_csv(
         os.path.join(DATA_LOC, 'data_dimensions.csv'),
         index_col=None,
