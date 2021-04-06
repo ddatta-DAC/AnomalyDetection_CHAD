@@ -19,6 +19,8 @@ from pprint import pprint
 from time import time
 from datetime import datetime
 
+ID_COL = 'PanjivaRecordID'
+
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # DEVICE = torch.device("cpu")
 print('Current device  >> ', DEVICE)
@@ -44,6 +46,7 @@ except:
 
 def execute_run(DATA_SET):
     global LOGGER
+    global ID_COL
     encoder_structure_config, decoder_structure_config, loss_structure_config, latent_dim = utils.create_config(DATA_SET)
     ae_model = None
 
@@ -51,8 +54,7 @@ def execute_run(DATA_SET):
 
     with open(config_file, 'r') as fh:
         config = yaml.safe_load(fh)
-    config = config[DATA_SET]
-
+    
     burn_in_epochs = config['burn_in_epochs']
     phase_2_epochs = config['phase_2_epochs']
     phase_3_epochs = config['phase_3_epochs']
@@ -103,7 +105,9 @@ def execute_run(DATA_SET):
         if epoch_losses_phase_3[-1] >= 0.1:
             not_converged = True
 
-    test_norm_X = data_dict['test']
+    test_norm_df = data_dict['test']
+    del test_norm_df[ID_COL]
+    test_norm_X = test_norm_df.values
     auc_list = []
     ae_model.mode = 'test'
 
@@ -113,7 +117,9 @@ def execute_run(DATA_SET):
     for idx in range(1, num_anomaly_sets + 1):
         key = 'anom_' + str(idx)
         test_anom_df = data_dict[key]
+        del test_anom_df[ID_COL]
         test_anom_X = test_anom_df.values
+        
         x1 = test_norm_X
         x2 = test_anom_X
 
