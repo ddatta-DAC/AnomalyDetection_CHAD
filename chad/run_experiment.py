@@ -44,6 +44,8 @@ try:
 except:
     import utils
 
+def _normalize_(val, _min, _max):
+    return (val - _min) / (_max - _min)
 def execute_run(DATA_SET):
     global LOGGER
     global ID_COL
@@ -108,87 +110,85 @@ def execute_run(DATA_SET):
     test_norm_df = data_dict['test']
     del test_norm_df[ID_COL]
     test_norm_X = test_norm_df.values
-    auc_list = []
+
     ae_model.mode = 'test'
+    auc_result = {}
+    for anomaly_key in ['anom_2_', 'anom_3_']:
+        auc_list = []
+        for idx in range(1, num_anomaly_sets + 1):
+            key = anomaly_key + str(idx)
+            test_anom_df = data_dict[key]
+            del test_anom_df[ID_COL]
+            test_anom_X = test_anom_df.values
 
-    def _normalize_(val, _min, _max):
-        return (val - _min) / (_max - _min)
+            x1 = test_norm_X
+            x2 = test_anom_X
+            x1_scores = ae_model.get_score(x1)
+            x2_scores = ae_model.get_score(x2)
 
-    for idx in range(1, num_anomaly_sets + 1):
-        key = 'anom_' + str(idx)
-        test_anom_df = data_dict[key]
-        del test_anom_df[ID_COL]
-        test_anom_X = test_anom_df.values
-        
-        x1 = test_norm_X
-        x2 = test_anom_X
+            res_data = []
+            labels = [1 for _ in range(x1.shape[0])] + [0 for _ in range(x2.shape[0])]
+            _scores = np.concatenate([x1_scores, x2_scores], axis=0)
 
-        x1_scores = ae_model.get_score(x1)
-        x2_scores = ae_model.get_score(x2)
+            for i, j in zip(_scores, labels):
+                res_data.append((i[0], j))
 
-        res_data = []
-        labels = [1 for _ in range(x1.shape[0])] + [0 for _ in range(x2.shape[0])]
-        _scores = np.concatenate([x1_scores, x2_scores], axis=0)
+            res_df = pd.DataFrame(res_data, columns=['score', 'label'])
+            res_df = res_df.sort_values(by=['score'], ascending=True)
 
-        for i, j in zip(_scores, labels):
-            res_data.append((i[0], j))
+            _max = max(res_df['score'])
+            _min = min(res_df['score'])
 
-        res_df = pd.DataFrame(res_data, columns=['score', 'label'])
-        res_df = res_df.sort_values(by=['score'], ascending=True)
+            res_df['score'] = res_df['score'].parallel_apply(
+                _normalize_,
+                args=(_min, _max,)
+            )
+            _max = max(res_df['score'])
+            _min = min(res_df['score'])
 
-        _max = max(res_df['score'])
-        _min = min(res_df['score'])
+            step = (_max - _min) / 100
 
-        res_df['score'] = res_df['score'].parallel_apply(
-            _normalize_,
-            args=(_min, _max,)
-        )
-        _max = max(res_df['score'])
-        _min = min(res_df['score'])
-
-        step = (_max - _min) / 100
-
-        # Vary the threshold
-        thresh = _min + step
-        thresh = round(thresh, 3)
-        num_anomalies = x2.shape[0]
-        print('Num anomalies', num_anomalies)
-        P = []
-        R = [0]
-
-        while thresh <= _max + step:
-            sel = res_df.loc[res_df['score'] <= thresh]
-            if len(sel) == 0:
-                thresh += step
-                continue
-
-            correct = sel.loc[sel['label'] == 0]
-            prec = len(correct) / len(sel)
-            rec = len(correct) / num_anomalies
-            P.append(prec)
-            R.append(rec)
-            thresh += step
+            # Vary the threshold
+            thresh = _min + step
             thresh = round(thresh, 3)
+            num_anomalies = x2.shape[0]
+            print('Num anomalies', num_anomalies)
+            P = []
+            R = [0]
 
-        P = [P[0]] + P
-        pr_auc = auc(R, P)
-        try:
-            plt.figure(figsize=[8, 6])
-            plt.plot(R, P)
-            plt.title('Precision Recall Curve  || auPR :' + "{:0.4f}".format(pr_auc), fontsize=15)
-            plt.xlabel('Recall', fontsize=15)
-            plt.ylabel('Precision', fontsize=15)
-            plt.show()
-        except:
-            pass
-        print("AUC : {:0.4f} ".format(pr_auc))
-        auc_list.append(pr_auc)
+            while thresh <= _max + step:
+                sel = res_df.loc[res_df['score'] <= thresh]
+                if len(sel) == 0:
+                    thresh += step
+                    continue
 
-    _mean = np.mean(auc_list)
-    _std = np.std(auc_list)
-    print(' Mean AUC {:0.4f} '.format(_mean))
-    print(' AUC std {:0.4f} '.format(_std))
-    return _mean, _std
+                correct = sel.loc[sel['label'] == 0]
+                prec = len(correct) / len(sel)
+                rec = len(correct) / num_anomalies
+                P.append(prec)
+                R.append(rec)
+                thresh += step
+                thresh = round(thresh, 3)
+
+            P = [P[0]] + P
+            pr_auc = auc(R, P)
+            try:
+                plt.figure(figsize=[8, 6])
+                plt.plot(R, P)
+                plt.title('Precision Recall Curve  || auPR :' + "{:0.4f}".format(pr_auc), fontsize=15)
+                plt.xlabel('Recall', fontsize=15)
+                plt.ylabel('Precision', fontsize=15)
+                plt.show()
+            except:
+                pass
+            print("AUC : {:0.4f} ".format(pr_auc))
+            auc_list.append(pr_auc)
+
+        mean_auc = np.mean(auc_list)
+        print(' (Mean) AUC {:0.4f} '.format(mean_auc))
+        auc_result[anomaly_key] = mean_auc
+
+    return auc_result
 
 
 # ==========================================================
@@ -217,16 +217,20 @@ LOGGER = utils.get_logger(LOG_FILE)
 
 utils.log_time(LOGGER)
 LOGGER.info(DATA_SET)
-results = []
+results = {}
+
 for n in range(1, num_runs + 1):
-    mean_aupr, std = execute_run(DATA_SET)
-    results.append(mean_aupr)
-    LOGGER.info(' Run {}: Mean: {:4f} | Std {:4f}'.format(n, mean_aupr, std))
+    auc_result = execute_run(DATA_SET)
+    for key,_aupr in auc_result.items():
+        if key not in results.keys():
+            results[key] = []
+        results[key].append(_aupr)
+        LOGGER.info("Run {}:  Anomaly type {} AuPR: {:4f}".format(n, key, _aupr))
+#--------------------
+for key, _aupr in results.items():
+    mean_all_runs = np.mean(_aupr)
+    log_op = 'Mean AuPR over {} | {} | runs {:5f} Std {:.5f}'.format(num_runs, key, mean_all_runs, np.std(_aupr))
+    LOGGER.info(log_op)
+    LOGGER.info(' Details ' + str(_aupr))
 
-mean_all_runs = np.mean(results)
-print('Mean AuPR over  {} runs {:4f}'.format(num_runs, mean_all_runs))
-print('Details: ', results)
-
-LOGGER.info('Mean AuPR over  {} runs {:4f} Std {:4f}'.format(num_runs, mean_all_runs, np.std(results)))
-LOGGER.info(' Details ' + str(results))
 utils.close_logger(LOGGER)
