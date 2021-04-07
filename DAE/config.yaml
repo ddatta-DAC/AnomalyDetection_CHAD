@@ -1,64 +1,9 @@
-kddcup:
-  layer_dims:
-    - 64
-    - 32
-    - 8
-  anomaly_ratio : 0.2
-  num_anomaly_sets : 5
-  epochs_1: 10
-  epochs_2: 25
-  k: 5
-
-kddcup_neptune:
-  layer_dims:
-    - 64
-    - 32
-    - 8
-  anomaly_ratio : 0.2
-  num_anomaly_sets : 5
-  epochs_1: 10
-  epochs_2: 25
-
-
-nb15:
-  layer_dims:
-    - 64
-    - 32
-    - 8
-  anomaly_ratio : 0.1
-  num_anomaly_sets : 5
-  epochs_1: 10
-  epochs_2: 25
-
-
-nsl_kdd:
-  layer_dims:
-    - 64
-    - 32
-    - 8
-  anomaly_ratio : 0.1
-  num_anomaly_sets : 5
-  epochs_1: 10
-  epochs_2: 25
-
-
-kddcup_smurf:
-  layer_dims:
-    - 64
-    - 32
-    - 8
-  anomaly_ratio : 0.2
-  num_anomaly_sets : 5
-  epochs_1: 10
-  epochs_2: 25
-
-
-gureKDD:
-  layer_dims:
-    - 48
-    - 24
-    - 8
-  anomaly_ratio : 0.1
-  num_anomaly_sets : 5
-  epochs_1: 10
-  epochs_2: 25
+layer_dims:
+  - 512
+  - 128
+  - 32
+anomaly_ratio : 0.25
+num_anomaly_sets : 5
+epochs_1: 75
+epochs_2: 25
+k: 5

@@ -46,6 +46,7 @@ except:
 
 def _normalize_(val, _min, _max):
     return (val - _min) / (_max - _min)
+
 def execute_run(DATA_SET):
     global LOGGER
     global ID_COL
@@ -172,15 +173,6 @@ def execute_run(DATA_SET):
 
             P = [P[0]] + P
             pr_auc = auc(R, P)
-            try:
-                plt.figure(figsize=[8, 6])
-                plt.plot(R, P)
-                plt.title('Precision Recall Curve  || auPR :' + "{:0.4f}".format(pr_auc), fontsize=15)
-                plt.xlabel('Recall', fontsize=15)
-                plt.ylabel('Precision', fontsize=15)
-                plt.show()
-            except:
-                pass
             print("AUC : {:0.4f} ".format(pr_auc))
             auc_list.append(pr_auc)
 
@@ -229,8 +221,9 @@ for n in range(1, num_runs + 1):
 #--------------------
 for key, _aupr in results.items():
     mean_all_runs = np.mean(_aupr)
-    log_op = 'Mean AuPR over {} | {} | runs {:5f} Std {:.5f}'.format(num_runs, key, mean_all_runs, np.std(_aupr))
+    log_op = 'Mean AuPR over runs {} | {} | {:5f} Std {:.5f}'.format(num_runs, key, mean_all_runs, np.std(_aupr))
     LOGGER.info(log_op)
+    print(log_op)
     LOGGER.info(' Details ' + str(_aupr))
 
 utils.close_logger(LOGGER)
