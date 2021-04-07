@@ -156,7 +156,7 @@ parser.add_argument(
     type=str,
     help=' Which data set ?',
     default=None,
-    choices=['kddcup', 'kddcup_neptune', 'nsl_kdd', 'nb15','gureKDD']
+    choices=['us_import1', 'us_import2', 'us_import3', 'us_import4','us_import5', 'us_import6']
 )
 
 parser.add_argument(
