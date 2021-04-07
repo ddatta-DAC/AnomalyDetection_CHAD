@@ -217,8 +217,9 @@ class DCN():
                     opt.step()
                     loss_val = b_loss.cpu().data.numpy()
                     epoch_loss.append(loss_val)
-                    if b_idx % log_interval == 0:
-                        print('Loss {:4f}'.format(loss_val))
+#                     if b_idx % log_interval == 0:
+                        
+#                         print('Loss {:4f}'.format(loss_val))
                 print(' Epoch {} loss {:4f}'.format(e + 1, np.mean(epoch_loss)))
 
         print('Greedy layer-wise pretraining [Done]')
@@ -251,7 +252,7 @@ class DCN():
                 epoch_loss.append(loss_val)
                 if b_idx % log_interval == 0:
                     print('Loss {:4f}'.format(loss_val))
-                print(' Epoch {} loss {:4f}'.format(e + 1, np.mean(epoch_loss)))
+            print(' Epoch {} loss {:4f}'.format(e + 1, np.mean(epoch_loss)))
 
         self.FLAG_ae_setup = True
         return

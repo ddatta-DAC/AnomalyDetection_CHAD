@@ -44,7 +44,7 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print('Current device  >> ', DEVICE)
 print('=========================== ')
 
-
+ID_COL = 'PanjivaRecordID'
 
 def train_model(
     DATA_SET,
@@ -52,23 +52,25 @@ def train_model(
     config
 ):
     global DEVICE
+    global ID_COL
     
-    layer_dims = config[DATA_SET]['layer_dims']
+    layer_dims = config['layer_dims']
     train_df = data_dict['train']
+    del train_df[ID_COL]
     train_X = train_df.values
     data_dim = train_X.shape[1]
 
-    epochs_1 = config[DATA_SET]['epochs_1']
-    epochs_2 = config[DATA_SET]['epochs_2']
-    K = config[DATA_SET]['k']
-    batch_size = config[DATA_SET]['batch_size']
+    epochs_1 = config['epochs_1']
+    epochs_2 = config['epochs_2']
+    K = config['k']
+    batch_size = config['batch_size']
     
     dcn_obj = DCN(
         DEVICE,
         data_dim,
         layer_dims,  # Provide the half (encoder only)
         op_activation='sigmoid',
-        layer_activation='sigmoid',
+        layer_activation='relu',
         dropout=0.1,
         LR=0.001,
         num_epochs_1=epochs_1,
@@ -90,7 +92,9 @@ def test_eval(
     data_dict,
     num_anomaly_sets
 ):
-    test_X = data_dict['test'].values
+    test_df = data_dict['test']
+    del test_df[ID_COL]
+    test_X = test_df.values
     test_labels = [0 for _ in range(test_X.shape[0])]
     test_scores = dcn_obj.score_samples(test_X)
 
@@ -98,8 +102,10 @@ def test_eval(
     for anomaly_key in ['anom_2_', 'anom_3_']:
         auc_list = []
         for idx in range(num_anomaly_sets):
-            key = 'anom_' + str(idx+1)
-            anom_X = data_dict[key].values
+            key = anomaly_key + str(idx+1)
+            anom_df = data_dict[key]
+            del anom_df[ID_COL]
+            anom_X = anom_df.values
             anom_labels = [1 for _ in range(anom_X.shape[0])]
             anom_scores = dcn_obj.score_samples(anom_X)
 
@@ -189,30 +195,11 @@ config_file = 'config.yaml'
 with open(config_file, 'r') as fh:
     config = yaml.safe_load(fh)
 
-num_anomaly_sets = config[DATA_SET]['num_anomaly_sets']
-anomaly_ratio = config[DATA_SET]['anomaly_ratio']
+num_anomaly_sets = config['num_anomaly_sets']
+anomaly_ratio = config['anomaly_ratio']
 results = []
 
-for n in range(1,num_runs+1):
-    data_dict, _ = data_fetcher.get_data(
-        DATA_SET,
-        one_hot=True,
-        num_anom_sets=num_anomaly_sets,
-        anomaly_ratio=anomaly_ratio
-    )
-    dcn_obj = train_model(DATA_SET, data_dict, config)
-    mean_aupr, std = test_eval(dcn_obj, data_dict, num_anomaly_sets)
 
-    results.append(mean_aupr)
-    LOGGER.info(' Run {}: Mean: {:4f} | Std {:4f}'.format(n,mean_aupr,std))
-
-mean_all_runs = np.mean(results)
-print('Mean AuPR over  {} runs {:4f}'.format(num_runs, mean_all_runs))
-print('Details: ', results)
-
-LOGGER.info('Mean AuPR over  {} runs {:4f} Std {:4f}'.format(num_runs, mean_all_runs, np.std(results)))
-LOGGER.info(' Details ' + str(results))
-utils.close_logger(LOGGER)
 
 
 results = {}
