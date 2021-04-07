@@ -50,4 +50,4 @@ LR: 0.0005
 max_gamma: 10
 fc_dropout: 0.1
 ae_dropout: 0.2
-anomaly_ratio: 0.3333
+anomaly_ratio: 0.25
