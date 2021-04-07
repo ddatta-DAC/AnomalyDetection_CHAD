@@ -1,13 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
-import pyod
-from pyod.models.lscp import LSCP
-import pandas as pd
-import numpy as np
 import sys
 import os
 sys.path.append('./..')
@@ -16,11 +9,10 @@ import pandas as pd
 import yaml
 from torch import FloatTensor as FT
 import numpy as np
-from pyod.models.lof import LOF
-import matplotlib.pyplot as plt
 import math
 from tqdm import tqdm
 import torch
+from sklearn.metrics import auc
 from pprint import pprint
 from collections import OrderedDict
 try:
@@ -30,17 +22,11 @@ except:
 import argparse
 from pathlib import Path
 import multiprocessing
-from pprint import pprint
-import torch
-import math
 import yaml
 import matplotlib.pyplot  as plt
 from sklearn.metrics import auc
-from pyod.models.cblof import CBLOF
-from pyod.models.cof import COF
-from pyod.models.loci import LOCI
-from pyod.models.auto_encoder import AutoEncoder
-from pyod.models.iforest import IForest
+
+
 import logging
 import logging.handlers
 from time import time
@@ -49,7 +35,6 @@ from sklearn.svm import OneClassSVM as OCSVM
 
 def get_logger():
     global LOG_FILE
-
     logger = logging.getLogger('main')
     logger.setLevel(logging.INFO)
     OP_DIR = os.path.join('Logs')
@@ -92,85 +77,76 @@ def train_model(DATA_SET, data_dict, config):
     model_obj.fit(train_X)
     return model_obj
 
+#  Normalize values
+def _normalize_(val, _min, _max):
+    return (val - _min) / (_max - _min)
+
 def test_eval(model_obj, data_dict, num_anomaly_sets):
     test_X = data_dict['test'].values
     test_labels = [0 for _ in range(test_X.shape[0])]
-
     test_scores = model_obj.score_samples(test_X)
-    auc_list = []
 
-    for idx in range(num_anomaly_sets):
-        key = 'anom_' + str(idx + 1)
-        anom_X = data_dict[key].values
-        anom_labels = [1 for _ in range(anom_X.shape[0])]
-        anom_scores = model_obj.score_samples(anom_X)
+    auc_result = {}
 
-        combined_scores = np.concatenate([anom_scores, test_scores], axis=0)
-        combined_labels = np.concatenate([anom_labels, test_labels], axis=0)
+    for anomaly_key in ['anom_2_', 'anom_3_']:
+        auc_list = []
+        for idx in range(num_anomaly_sets):
+            key = anomaly_key + str(idx + 1)
+            anom_X = data_dict[key].values
+            anom_labels = [1 for _ in range(anom_X.shape[0])]
+            anom_scores = model_obj.score_samples(anom_X)
 
-        res_data = []
-        for i, j in zip(combined_scores, combined_labels):
-            res_data.append((i, j))
-        res_df = pd.DataFrame(res_data, columns=['score', 'label'])
+            combined_scores = np.concatenate([anom_scores, test_scores], axis=0)
+            combined_labels = np.concatenate([anom_labels, test_labels], axis=0)
 
-        #  Normalize values
-        def _normalize_(val, _min, _max):
-            return (val - _min) / (_max - _min)
+            res_data = []
+            for i, j in zip(combined_scores, combined_labels):
+                res_data.append((i, j))
+            res_df = pd.DataFrame(res_data, columns=['score', 'label'])
 
-        _max = max(combined_scores)
-        _min = min(combined_scores)
+            _max = max(combined_scores)
+            _min = min(combined_scores)
+            res_df['score'] = res_df['score'].parallel_apply(
+                _normalize_,
+                args=(_min, _max,)
+            )
 
-        res_df['score'] = res_df['score'].parallel_apply(
-            _normalize_,
-            args=(_min, _max,)
-        )
+            res_df = res_df.sort_values(by=['score'], ascending=False)
+            _max = max(res_df['score'])
+            _min = min(res_df['score'])
+            step = (_max - _min) / 100
 
-        res_df = res_df.sort_values(by=['score'], ascending=False)
-        _max = max(res_df['score'])
-        _min = min(res_df['score'])
-        step = (_max - _min) / 100
+            # OCSVM score samples score anomalies lower
+            # Vary the threshold
+            thresh = _min + step
+            num_anomalies = anom_X.shape[0]
+            P = []
+            R = [0]
 
-        # OCSVM score samples score anomalies lower
-        # Vary the threshold
-        thresh = _min + step
-        num_anomalies = anom_X.shape[0]
-        P = []
-        R = [0]
+            while thresh <= _max:
+                sel = res_df.loc[res_df['score'] <= thresh]
+                if len(sel) == 0:
+                    thresh -= step
+                    continue
+                correct = sel.loc[sel['label'] == 1]
+                prec = len(correct) / len(sel)
+                rec = len(correct) / num_anomalies
+                P.append(prec)
+                R.append(rec)
+                if rec >= 1.0:
+                    break
+                thresh += step
+                thresh = round(thresh, 3)
+            P = [P[0]] + P
 
-        while thresh <= _max:
-            sel = res_df.loc[res_df['score'] <= thresh]
-            if len(sel) == 0:
-                thresh -= step
-                continue
-            correct = sel.loc[sel['label'] == 1]
-            prec = len(correct) / len(sel)
-            rec = len(correct) / num_anomalies
-            P.append(prec)
-            R.append(rec)
-            if rec >= 1.0:
-                break
-            thresh += step
-            thresh = round(thresh, 3)
-        P = [P[0]] + P
-        from sklearn.metrics import auc
+            pr_auc = auc(R, P)
+            auc_list.append(pr_auc)
+            print("AUC : {:0.4f} ".format(pr_auc))
 
-        pr_auc = auc(R, P)
-        auc_list.append(pr_auc)
-
-        print("AUC : {:0.4f} ".format(pr_auc))
-        try:
-            plt.figure()
-            plt.title('PR Curve' + str(pr_auc))
-            plt.plot(R, P)
-            plt.show()
-        except:
-            pass
-
-    _mean = np.mean(auc_list)
-    _std = np.std(auc_list)
-    print(' Mean AUC ', np.mean(auc_list))
-    print(' AUC std', np.std(auc_list))
-    return _mean, _std
+        mean_auc = np.mean(auc_list)
+        print(' (Mean) AUC {:0.4f} '.format(mean_auc))
+        auc_result[anomaly_key] = mean_auc
+    return auc_result
 
 # ==============================================================
 
@@ -201,11 +177,11 @@ config_file = 'config.yaml'
 with open(config_file, 'r') as fh:
     config = yaml.safe_load(fh)
 
-num_anomaly_sets = config[DATA_SET]['num_anomaly_sets']
-anomaly_ratio = config[DATA_SET]['anomaly_ratio']
-results = []
+num_anomaly_sets = config['num_anomaly_sets']
+anomaly_ratio = config['anomaly_ratio']
 
-for n in range(1,num_runs+1):
+results = {}
+for n in range(1, num_runs + 1):
     data_dict, _ = data_fetcher.get_data(
         DATA_SET,
         one_hot=True,
@@ -214,15 +190,21 @@ for n in range(1,num_runs+1):
     )
 
     model_obj = train_model(DATA_SET, data_dict, config)
-    mean_aupr, std = test_eval(model_obj, data_dict, num_anomaly_sets)
-    results.append(mean_aupr)
-    LOGGER.info(' Run {}: Mean: {:4f} | Std {:4f}'.format(n,mean_aupr,std))
+    auc_result = test_eval(model_obj, data_dict, num_anomaly_sets)
 
-mean_all_runs = np.mean(results)
-print('Mean AuPR over  {} runs {:4f}'.format(num_runs, mean_all_runs))
-print('Details: ', results)
+    for key,_aupr in auc_result.items():
+        if key not in results.keys():
+            results[key] = []
+        results[key].append(_aupr)
+        LOGGER.info("Run {}:  Anomaly type {} AuPR: {:4f}".format(n, key, _aupr))
+#--------------------
+for key, _aupr in results.items():
+    mean_all_runs = np.mean(_aupr)
+    log_op = 'Mean AuPR over runs {} | {} | {:5f} Std {:.5f}'.format(num_runs, key, mean_all_runs, np.std(_aupr))
+    LOGGER.info(log_op)
+    print(log_op)
+    LOGGER.info(' Details ' + str(_aupr))
 
-LOGGER.info('Mean AuPR over  {} runs {:4f} Std {:4f}'.format(num_runs, mean_all_runs, np.std(results)))
-LOGGER.info(' Details ' + str(results))
 close_logger(LOGGER)
+
 
