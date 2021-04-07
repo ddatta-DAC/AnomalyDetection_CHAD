@@ -38,9 +38,7 @@ def get_logger():
     logger = logging.getLogger('main')
     logger.setLevel(logging.INFO)
     OP_DIR = os.path.join('Logs')
-
-    if not os.path.exists(OP_DIR):
-        os.mkdir(OP_DIR)
+    Path(OP_DIR).mkdir(exist_ok=True, parents=True)
 
     handler = logging.FileHandler(os.path.join(OP_DIR, LOG_FILE))
     handler.setLevel(logging.INFO)
