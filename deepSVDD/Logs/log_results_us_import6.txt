@@ -2,3 +2,41 @@ Log start :: 2021-04-04 20:59:00.703111
 2021-04-04 20:59:00.703238| Time stamp 1617584340.703244
 us_import6
 {'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.01}
+Log start :: 2021-04-04 22:12:12.108425
+2021-04-04 22:12:12.108591| Time stamp 1617588732.1085973
+us_import6
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.01}
+AuPR  Objective one-class Mean 0.7459  Std 0.0031
+AuPR  Objective soft-boundary Mean 0.6857  Std 0.0006
+Log start :: 2021-04-05 11:02:56.525200
+2021-04-05 11:02:56.525370| Time stamp 1617634976.5253766
+us_import6
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.01}
+AuPR  Objective one-class Mean 0.7337  Std 0.0051
+AuPR  Objective soft-boundary Mean 0.6897  Std 0.0009
+Log start :: 2021-04-06 07:08:09.650703
+2021-04-06 07:08:09.650871| Time stamp 1617707289.6508799
+us_import6
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.01}
+soft-boundary || Run 1 : AuPR: 0.810831 
+soft-boundary || Run 2 : AuPR: 0.741794 
+soft-boundary || Run 3 : AuPR: 0.738137 
+soft-boundary || Run 4 : AuPR: 0.710936 
+soft-boundary || Run 5 : AuPR: 0.711304 
+soft-boundary || Run 6 : AuPR: 0.711043 
+soft-boundary || Run 7 : AuPR: 0.745585 
+soft-boundary || Run 8 : AuPR: 0.825034 
+soft-boundary || Run 9 : AuPR: 0.720390 
+soft-boundary || Run 10 : AuPR: 0.656399 
+AuPR  Objective soft-boundary Mean 0.7371  Std 0.0470
+ one-class || Run 1 : AuPR: 0.695182 
+ one-class || Run 2 : AuPR: 0.711378 
+ one-class || Run 3 : AuPR: 0.716517 
+ one-class || Run 4 : AuPR: 0.662256 
+ one-class || Run 5 : AuPR: 0.756003 
+ one-class || Run 6 : AuPR: 0.624352 
+ one-class || Run 7 : AuPR: 0.715619 
+ one-class || Run 8 : AuPR: 0.697313 
+ one-class || Run 9 : AuPR: 0.776028 
+ one-class || Run 10 : AuPR: 0.755225 
+AuPR  Objective one-class Mean 0.7110  Std 0.0431

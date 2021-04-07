@@ -1,70 +1,36 @@
-Log start :: 2021-04-04 17:10:50.224076
-2021-04-04 17:10:50.224186| Time stamp 1617570650.2241917
-us_import1
-Log start :: 2021-04-04 17:13:50.615739
-2021-04-04 17:13:50.615944| Time stamp 1617570830.6159563
-us_import1
-Log start :: 2021-04-04 17:14:16.337341
-2021-04-04 17:14:16.337450| Time stamp 1617570856.3374553
-us_import1
-{'layer_dims': [256, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
-Log start :: 2021-04-04 17:15:04.623947
-2021-04-04 17:15:04.624062| Time stamp 1617570904.624067
-us_import1
-{'layer_dims': [256, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
-Log start :: 2021-04-04 17:17:51.329843
-2021-04-04 17:17:51.329980| Time stamp 1617571071.329986
-us_import1
-{'layer_dims': [256, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
-Log start :: 2021-04-04 17:57:40.829066
-2021-04-04 17:57:40.829245| Time stamp 1617573460.829257
-us_import1
-{'layer_dims': [256, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
-Log start :: 2021-04-04 18:10:18.295965
-2021-04-04 18:10:18.296075| Time stamp 1617574218.2960808
-us_import1
-{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
-Log start :: 2021-04-04 18:23:14.509894
-2021-04-04 18:23:14.510002| Time stamp 1617574994.5100067
-us_import1
-{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
-Log start :: 2021-04-04 18:24:59.902998
-2021-04-04 18:24:59.903108| Time stamp 1617575099.9031138
-us_import1
-{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
-Log start :: 2021-04-04 18:25:29.756915
-2021-04-04 18:25:29.757027| Time stamp 1617575129.757032
-us_import1
-{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
-Log start :: 2021-04-04 18:25:57.699362
-2021-04-04 18:25:57.699574| Time stamp 1617575157.6995852
-us_import1
-{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.001}
-Log start :: 2021-04-04 18:27:18.200905
-2021-04-04 18:27:18.201059| Time stamp 1617575238.2010646
-us_import1
-{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.1}
-Log start :: 2021-04-04 18:46:43.766799
-2021-04-04 18:46:43.767042| Time stamp 1617576403.7670543
-us_import1
-{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.1}
-Log start :: 2021-04-04 18:59:12.217378
-2021-04-04 18:59:12.217492| Time stamp 1617577152.2174985
-us_import1
-{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.1}
-Log start :: 2021-04-04 19:00:22.805522
-2021-04-04 19:00:22.805731| Time stamp 1617577222.8057427
 us_import1
 {'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.01}
-Log start :: 2021-04-04 19:59:23.907199
-2021-04-04 19:59:23.907308| Time stamp 1617580763.9073133
+AuPR  Objective one-class Mean 0.6819  Std 0.0009
+AuPR  Objective soft-boundary Mean 0.7034  Std 0.0009
+Log start :: 2021-04-05 11:02:56.541515
+2021-04-05 11:02:56.541932| Time stamp 1617634976.5419402
 us_import1
 {'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.01}
-Log start :: 2021-04-04 20:29:15.488704
-2021-04-04 20:29:15.488850| Time stamp 1617582555.488856
+AuPR  Objective one-class Mean 0.7090  Std 0.0052
+AuPR  Objective soft-boundary Mean 0.7882  Std 0.0010
+Log start :: 2021-04-06 07:08:09.657357
+2021-04-06 07:08:09.657525| Time stamp 1617707289.6575403
 us_import1
 {'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.01}
-Log start :: 2021-04-04 20:59:00.793217
-2021-04-04 20:59:00.793363| Time stamp 1617584340.7933693
-us_import1
-{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.5, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.01}
+soft-boundary || Run 1 : AuPR: 0.735787 
+soft-boundary || Run 2 : AuPR: 0.739145 
+soft-boundary || Run 3 : AuPR: 0.757167 
+soft-boundary || Run 4 : AuPR: 0.684601 
+soft-boundary || Run 5 : AuPR: 0.760934 
+soft-boundary || Run 6 : AuPR: 0.702451 
+soft-boundary || Run 7 : AuPR: 0.698292 
+soft-boundary || Run 8 : AuPR: 0.735338 
+soft-boundary || Run 9 : AuPR: 0.732782 
+soft-boundary || Run 10 : AuPR: 0.732173 
+AuPR  Objective soft-boundary Mean 0.7279  Std 0.0237
+ one-class || Run 1 : AuPR: 0.682645 
+ one-class || Run 2 : AuPR: 0.691680 
+ one-class || Run 3 : AuPR: 0.679537 
+ one-class || Run 4 : AuPR: 0.599572 
+ one-class || Run 5 : AuPR: 0.701717 
+ one-class || Run 6 : AuPR: 0.693289 
+ one-class || Run 7 : AuPR: 0.691882 
+ one-class || Run 8 : AuPR: 0.695861 
+ one-class || Run 9 : AuPR: 0.667471 
+ one-class || Run 10 : AuPR: 0.684094 
+AuPR  Objective one-class Mean 0.6788  Std 0.0280

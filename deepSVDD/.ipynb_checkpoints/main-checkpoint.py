@@ -236,28 +236,35 @@ data_dict, _ = data_fetcher.get_data(
     anomaly_ratio=anomaly_ratio
 )
 
-mean_aupr1, std1 = main(
-    data_dict,
-    layer_dims,
-    objective='one-class',
-    config=config,
-    NU=nu
-)
-mean_aupr2, std2 = main(
-    data_dict,
-    layer_dims,
-    objective='soft-boundary',
-    config=config,
-    NU=nu
-)
+aupr_list = [] 
+for n in range(1, num_runs + 1):
+    aupr, std = main(
+        data_dict,
+        layer_dims,
+        objective='soft-boundary',
+        config=config,
+        NU=nu
+    )
+    aupr_list.append(aupr)
+    LOGGER.info('soft-boundary || Run {} : AuPR: {:4f} '.format(n, aupr))
+
+LOGGER.info('AuPR  Objective {} Mean {:.4f}  Std {:.4f}'.format( 'soft-boundary', np.mean(aupr_list),  np.std(aupr_list)))
 
 
-LOGGER.info('AuPR  Objective {} Mean {:.4f}  Std {:.4f}'.format(num_runs, 'one-class', mean_aupr1,  std1))
-LOGGER.info('AuPR  Objective {} Mean {:.4f}  Std {:.4f}'.format(num_runs, 'soft-boundary', mean_aupr2,  std2))
+aupr_list = [] 
+for n in range(1, num_runs + 1):
+    aupr, std = main(
+        data_dict,
+        layer_dims,
+        objective='one-class',
+        config=config,
+        NU=nu
+    )
+    aupr_list.append(aupr)
+    LOGGER.info(' one-class || Run {} : AuPR: {:4f} '.format(n, aupr))
+
+LOGGER.info('AuPR  Objective {} Mean {:.4f}  Std {:.4f}'.format( 'one-class', np.mean(aupr_list),  np.std(aupr_list)))
 utils.close_logger(LOGGER)
-
-
-
 
 
 
