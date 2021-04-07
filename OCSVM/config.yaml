@@ -1,20 +1,3 @@
-kddcup:
-  anomaly_ratio: 0.2
-  num_anomaly_sets: 5
-  nu: 0.2
-kddcup_neptune:
-  anomaly_ratio: 0.2
-  num_anomaly_sets: 5
-  nu: 0.2
-gureKDD:
-  anomaly_ratio: 0.1
-  num_anomaly_sets: 5
-  nu: 0.1
-nsl_kdd:
-  anomaly_ratio: 0.1
-  num_anomaly_sets: 5
-  nu: 0.1
-nb15:
-  anomaly_ratio: 0.1
-  num_anomaly_sets: 5
-  nu: 0.1
+anomaly_ratio: 0.25
+num_anomaly_sets: 5
+nu: 0.1
