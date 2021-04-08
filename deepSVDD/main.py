@@ -19,13 +19,8 @@ from torch import FloatTensor as FT
 from torch import LongTensor as LT
 from torch import nn
 from torch.nn import functional as F
-import os
 from collections import OrderedDict
 import yaml
-from tqdm import tqdm
-import matplotlib.pyplot as plt
-import math
-from sklearn.cluster import MiniBatchKMeans, KMeans
 import argparse
 try:
     from . import utils
@@ -105,84 +100,75 @@ def main(
     
     test_scores = deep_SVDD.test(test_X)
     test_labels = [0 for _ in range(test_X.shape[0])]
-    auc_list = []
 
-    for idx in range(num_anomaly_sets):
-        key = 'anom_' + str(idx + 1)
-        anom_df = data_dict[key]
-        try:
-            del anom_df[ID_COL]
-        except:
-            pass
-        
-        anom_X = anom_df.values
-        anom_labels = [1 for _ in range(anom_X.shape[0])]
-        anom_scores = deep_SVDD.test(anom_X)
+    auc_result = {}
+    for anomaly_key in ['anom_2_', 'anom_3_']:
+        auc_list = []
+        for idx in range(num_anomaly_sets):
+            key = anomaly_key + str(idx + 1)
+            anom_df = data_dict[key]
+            try:
+                del anom_df[ID_COL]
+            except:
+                pass
 
-        combined_scores = np.concatenate([anom_scores, test_scores], axis=0)
-        combined_labels = np.concatenate([anom_labels, test_labels], axis=0)
+            anom_X = anom_df.values
+            anom_labels = [1 for _ in range(anom_X.shape[0])]
+            anom_scores = deep_SVDD.test(anom_X)
 
-        res_data = []
-        for i, j in zip(combined_scores, combined_labels):
-            res_data.append((i, j))
-        res_df = pd.DataFrame(res_data, columns=['score', 'label'])
+            combined_scores = np.concatenate([anom_scores, test_scores], axis=0)
+            combined_labels = np.concatenate([anom_labels, test_labels], axis=0)
 
-        #  Normalize values
-        def _normalize_(val, _min, _max):
-            return (val - _min) / (_max - _min)
+            res_data = []
+            for i, j in zip(combined_scores, combined_labels):
+                res_data.append((i, j))
+            res_df = pd.DataFrame(res_data, columns=['score', 'label'])
 
-        _max = max(combined_scores)
-        _min = min(combined_scores)
+            #  Normalize values
+            def _normalize_(val, _min, _max):
+                return (val - _min) / (_max - _min)
 
-        res_df['score'] = res_df['score'].parallel_apply(
-            _normalize_,
-            args=(_min, _max,)
-        )
+            _max = max(combined_scores)
+            _min = min(combined_scores)
 
-        res_df = res_df.sort_values(by=['score'], ascending=False)
-        _max = max(res_df['score'])
-        _min = min(res_df['score'])
-        step = (_max - _min) / 100
+            res_df['score'] = res_df['score'].parallel_apply(
+                _normalize_,
+                args=(_min, _max,)
+            )
 
-        # Vary the threshold
-        thresh = _max - step
-        num_anomalies = anom_X.shape[0]
-        P = []
-        R = [0]
+            res_df = res_df.sort_values(by=['score'], ascending=False)
+            _max = max(res_df['score'])
+            _min = min(res_df['score'])
+            step = (_max - _min) / 100
 
-        while thresh >= _min:
-            sel = res_df.loc[res_df['score'] >= thresh]
-            if len(sel) == 0:
+            # Vary the threshold
+            thresh = _max - step
+            num_anomalies = anom_X.shape[0]
+            P = []
+            R = [0]
+
+            while thresh >= _min:
+                sel = res_df.loc[res_df['score'] >= thresh]
+                if len(sel) == 0:
+                    thresh -= step
+                    continue
+                correct = sel.loc[sel['label'] == 1]
+                prec = len(correct) / len(sel)
+                rec = len(correct) / num_anomalies
+                P.append(prec)
+                R.append(rec)
+                if rec >= 1.0:
+                    break
                 thresh -= step
-                continue
-            correct = sel.loc[sel['label'] == 1]
-            prec = len(correct) / len(sel)
-            rec = len(correct) / num_anomalies
-            P.append(prec)
-            R.append(rec)
-            if rec >= 1.0:
-                break
-            thresh -= step
-            thresh = round(thresh, 3)
-        P = [P[0]] + P
-
-        pr_auc = auc(R, P)
-        auc_list.append(pr_auc)
-
-        print("AUC : {:0.4f} ".format(pr_auc))
-        try:
-            plt.figure()
-            plt.title('PR Curve' + str(pr_auc))
-            plt.plot(R, P)
-            plt.show()
-        except:
-            pass
-
-    _mean = np.mean(auc_list)
-    _std = np.std(auc_list)
-    print(' Mean AUC ', np.mean(auc_list))
-    print(' AUC std', np.std(auc_list))
-    return _mean, _std
+                thresh = round(thresh, 3)
+            P = [P[0]] + P
+            pr_auc = auc(R, P)
+            print("AUC : {:0.4f} ".format(pr_auc))
+            auc_list.append(pr_auc)
+        mean_auc = np.mean(auc_list)
+        print(' (Mean) AUC {:0.4f} '.format(mean_auc))
+        auc_result[anomaly_key] = mean_auc
+    return auc_result
 
 # ==================================================
 
@@ -199,6 +185,14 @@ parser.add_argument(
     type=float,
     default=0.05
 )
+
+parser.add_argument(
+    '--objective',
+    type=str,
+    choices=['soft-boundary','one-class'],
+    help='Objective'
+)
+
 
 parser.add_argument(
     '--num_runs',
@@ -226,8 +220,10 @@ config = config
 print(config)
 layer_dims = config['layer_dims']
 
-objectives =['soft-boundary','one-class']
+
+objective =  args.objective
 LOGGER.info(str(config))
+LOGGER.info(objective)
 
 data_dict, _ = data_fetcher.get_data(
     DATA_SET,
@@ -249,21 +245,39 @@ for n in range(1, num_runs + 1):
     LOGGER.info('soft-boundary || Run {} : AuPR: {:4f} '.format(n, aupr))
 
 LOGGER.info('AuPR  Objective {} Mean {:.4f}  Std {:.4f}'.format( 'soft-boundary', np.mean(aupr_list),  np.std(aupr_list)))
+=======
+mean_aupr1, std1 =
 
 
-aupr_list = [] 
+
+
+LOGGER.info('AuPR  Objective {} Mean {:.4f}  Std {:.4f}'.format(num_runs, objective, mean_aupr1,  std1))
+utils.close_logger(LOGGER)
+
+
+results = {}
+
 for n in range(1, num_runs + 1):
-    aupr, std = main(
+    auc_result = main(
         data_dict,
         layer_dims,
-        objective='one-class',
+        objective=objective,
         config=config,
         NU=nu
     )
-    aupr_list.append(aupr)
-    LOGGER.info(' one-class || Run {} : AuPR: {:4f} '.format(n, aupr))
+    for key,_aupr in auc_result.items():
+        if key not in results.keys():
+            results[key] = []
+        results[key].append(_aupr)
+        LOGGER.info("Run {}:  Anomaly type {} AuPR: {:4f}".format(n, key, _aupr))
+#--------------------
+for key, _aupr in results.items():
+    mean_all_runs = np.mean(_aupr)
+    log_op = 'Mean AuPR over runs {} | {} | {:5f} Std {:.5f}'.format(num_runs, key, mean_all_runs, np.std(_aupr))
+    LOGGER.info(log_op)
+    print(log_op)
+    LOGGER.info(' Details ' + str(_aupr))
 
-LOGGER.info('AuPR  Objective {} Mean {:.4f}  Std {:.4f}'.format( 'one-class', np.mean(aupr_list),  np.std(aupr_list)))
 utils.close_logger(LOGGER)
 
 
