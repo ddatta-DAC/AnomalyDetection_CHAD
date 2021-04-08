@@ -232,28 +232,6 @@ data_dict, _ = data_fetcher.get_data(
     anomaly_ratio=anomaly_ratio
 )
 
-aupr_list = [] 
-for n in range(1, num_runs + 1):
-    aupr, std = main(
-        data_dict,
-        layer_dims,
-        objective='soft-boundary',
-        config=config,
-        NU=nu
-    )
-    aupr_list.append(aupr)
-    LOGGER.info('soft-boundary || Run {} : AuPR: {:4f} '.format(n, aupr))
-
-LOGGER.info('AuPR  Objective {} Mean {:.4f}  Std {:.4f}'.format( 'soft-boundary', np.mean(aupr_list),  np.std(aupr_list)))
-=======
-mean_aupr1, std1 =
-
-
-
-
-LOGGER.info('AuPR  Objective {} Mean {:.4f}  Std {:.4f}'.format(num_runs, objective, mean_aupr1,  std1))
-utils.close_logger(LOGGER)
-
 
 results = {}
 
