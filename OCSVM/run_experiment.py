@@ -32,6 +32,7 @@ import logging.handlers
 from time import time
 from datetime import datetime
 from sklearn.svm import OneClassSVM as OCSVM
+ID_COL = 'PanjivaRecordID'
 
 def get_logger():
     global LOG_FILE
@@ -61,6 +62,8 @@ def close_logger(logger):
 
 
 def train_model(DATA_SET, data_dict, config):
+    global ID_COL
+    print('Training model started')
     model_obj = OCSVM(
         kernel='rbf',
         gamma='auto',
@@ -71,8 +74,14 @@ def train_model(DATA_SET, data_dict, config):
         max_iter=-1
     )
     train_df = data_dict['train']
+    try:
+        del train_df[ID_COL]
+    except:
+        pass
+    
     train_X = train_df.values
     model_obj.fit(train_X)
+    print('Training model completed')
     return model_obj
 
 #  Normalize values
@@ -80,7 +89,15 @@ def _normalize_(val, _min, _max):
     return (val - _min) / (_max - _min)
 
 def test_eval(model_obj, data_dict, num_anomaly_sets):
-    test_X = data_dict['test'].values
+    global ID_COL
+    test_df = data_dict['test']
+    
+    try:
+        del test_df[ID_COL]
+    except:
+        pass
+    test_X = test_df.values
+    
     test_labels = [0 for _ in range(test_X.shape[0])]
     test_scores = model_obj.score_samples(test_X)
 
@@ -90,7 +107,13 @@ def test_eval(model_obj, data_dict, num_anomaly_sets):
         auc_list = []
         for idx in range(num_anomaly_sets):
             key = anomaly_key + str(idx + 1)
-            anom_X = data_dict[key].values
+            anom_df = data_dict[key]
+            try:
+                del anom_df[ID_COL]
+            except:
+                pass
+            anom_X = anom_df.values
+            
             anom_labels = [1 for _ in range(anom_X.shape[0])]
             anom_scores = model_obj.score_samples(anom_X)
 
