@@ -1,0 +1,50 @@
+ae_latent_dimension: 32
+encoder_FCN_to_latent:
+  dims:
+    - 128
+    - 64
+  activation: 'relu'
+encoder_discrete_xform:
+  Carrier:
+    dims:
+      - 32
+    activation: 'none'
+  HSCode :
+    dims:
+      - 32
+    activation: 'none'
+  PortOfLading:
+    dims:
+      - 32
+    activation: 'none'
+  PortOfUnlading:
+    dims:
+      - 32
+    activation: 'none'
+  ShipmentDestination:
+    dims:
+      - 32
+    activation: 'none'
+  ShipmentOrigin:
+    dims:
+      - 32
+    activation: 'none'
+encoder_real_xform:
+  dims: ~
+  activation: 'relu'
+decoder_FC_from_latent:
+  dims:
+      - 128
+      - 256
+      - 512
+  activation:  'relu'
+decoder_discrete_xform: ~
+decoder_real_xform: ~
+real_loss_func: 'mse'
+epochs: 100
+batch_size: 256
+LR: 0.0005
+max_gamma: 10
+fc_dropout: 0.1
+ae_dropout: 0.2
+anomaly_ratio: 0.25
