@@ -54,6 +54,7 @@ class AE_encoder(nn.Module):
         conatenated_inp_dim = 0
         encoder_discrete_xform = structure_config['encoder_discrete_xform']
         self.input_x_form_layers = nn.ModuleList()
+        
         for column, dim in self.discrete_dims.items():
             if encoder_discrete_xform is not None and column in encoder_discrete_xform.keys():
                 _fcn_ = encoder_discrete_xform[column]['dims']

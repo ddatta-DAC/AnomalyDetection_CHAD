@@ -45,16 +45,16 @@ def execute_run(DATA_SET):
     global ID_COL
     global LOGGER
     encoder_structure_config, decoder_structure_config, loss_structure_config, latent_dim = create_config(DATA_SET)
-    config_file = 'config.yaml'
+    config_file = 'architecture_config.yaml'
 
     with open(config_file, 'r') as fh:
         config = yaml.safe_load(fh)
 
-    anomaly_ratio = config[DATA_SET]['anomaly_ratio']
-    LR = config[DATA_SET]['LR']
-    batch_size =  config[DATA_SET]['batch_size']
-    epochs = config[DATA_SET]['epochs']
-    dropout = config[DATA_SET]['ae_dropout']
+    anomaly_ratio = config['anomaly_ratio']
+    LR = config['LR']
+    batch_size =  config['batch_size']
+    epochs = config['epochs']
+    dropout = config['ae_dropout']
 
     ae_model = Model(
         DEVICE,
