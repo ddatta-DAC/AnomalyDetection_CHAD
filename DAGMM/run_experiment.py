@@ -64,7 +64,7 @@ def create_config(
 
     print('Num real columns :: ', num_real_columns)
     print('Num discrete columns ::', num_discrete_columns)
-    latent_dim = config[data_set]['ae_latent_dimension']
+    latent_dim = config['ae_latent_dimension']
 
     encoder_structure_config = {}
     encoder_structure_config['discrete_column_dims'] = discrete_column_dims
