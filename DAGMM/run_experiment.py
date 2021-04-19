@@ -358,7 +358,7 @@ def execute_run(DATA_SET):
     batch_size = config['batch_size']
     anomaly_ratio = config['anomaly_ratio']
     learning_rate = config['LR']
-
+    num_epochs = config['num_epochs']
     data_dict, _ = data_fetcher.get_data(
         DATA_SET,
         one_hot=True,
@@ -391,9 +391,9 @@ def execute_run(DATA_SET):
     dagmm_obj = train(
         dagmm_obj,
         train_X,
-        num_epochs=400,
+        num_epochs=num_epochs,
         batch_size=batch_size,
-        LR=0.0001
+        LR=learning_rate
     )
     mean_aupr, std = test(
         dagmm_obj,

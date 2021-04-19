@@ -21,7 +21,6 @@ gmm:
 
 anomaly_ratio : 0.25
 num_anomaly_sets : 5
-num_epochs: 100
-ae_epochs: 200
+num_epochs: 250
 batch_size : 1024
-LR : 0.001
+LR : 0.0005
