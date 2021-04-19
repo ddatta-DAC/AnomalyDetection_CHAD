@@ -198,6 +198,7 @@ anomaly_ratio = config['anomaly_ratio']
 
 results = {}
 for n in range(1, num_runs + 1):
+
     data_dict, _ = data_fetcher.get_data(
         DATA_SET,
         one_hot=True,

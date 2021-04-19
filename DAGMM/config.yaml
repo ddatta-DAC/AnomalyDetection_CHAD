@@ -1,0 +1,27 @@
+encoder_layers:
+  activation: 'relu'
+  layer_dims:
+    - 512
+    - 128
+    - 32
+ae_latent_dimension: 3
+decoder_layers:
+  activation: 'relu'
+  layer_dims:
+    - 32
+    - 128
+    - 512
+  gmm:
+    num_components: 3
+    FC_layer:
+      dims:
+        - 16
+      activation: 'tanh'
+    FC_dropout: 0.5
+
+anomaly_ratio : 0.25
+num_anomaly_sets : 5
+num_epochs: 100
+ae_epochs: 200
+batch_size : 1024
+LR : 0.001
