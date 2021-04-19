@@ -40,3 +40,41 @@ AuPR  Objective soft-boundary Mean 0.7371  Std 0.0470
  one-class || Run 9 : AuPR: 0.776028 
  one-class || Run 10 : AuPR: 0.755225 
 AuPR  Objective one-class Mean 0.7110  Std 0.0431
+Log start :: 2021-04-08 17:55:11.832257
+2021-04-08 17:55:11.832411| Time stamp 1617918911.8324172
+us_import6
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.25, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.01}
+soft-boundary
+Run 1:  Anomaly type anom_2_ AuPR: 0.768972
+Run 1:  Anomaly type anom_3_ AuPR: 0.763022
+Run 2:  Anomaly type anom_2_ AuPR: 0.680641
+Run 2:  Anomaly type anom_3_ AuPR: 0.680221
+Run 3:  Anomaly type anom_2_ AuPR: 0.753158
+Run 3:  Anomaly type anom_3_ AuPR: 0.753237
+Run 4:  Anomaly type anom_2_ AuPR: 0.660306
+Run 4:  Anomaly type anom_3_ AuPR: 0.659431
+Run 5:  Anomaly type anom_2_ AuPR: 0.697606
+Run 5:  Anomaly type anom_3_ AuPR: 0.698589
+Mean AuPR over runs 5 | anom_2_ | 0.712136 Std 0.04196
+ Details [0.7689723060009908, 0.6806409114416999, 0.7531576976433103, 0.6603058153763378, 0.697605733686278]
+Mean AuPR over runs 5 | anom_3_ | 0.710900 Std 0.04062
+ Details [0.7630224120760302, 0.6802208822322771, 0.7532371934311816, 0.6594307795954355, 0.6985887399375473]
+Log start :: 2021-04-08 22:05:39.435136
+2021-04-08 22:05:39.435330| Time stamp 1617933939.4353397
+us_import6
+{'layer_dims': [512, 128, 32], 'anomaly_ratio': 0.25, 'num_anomaly_sets': 5, 'num_epochs': 100, 'ae_epochs': 200, 'batch_size': 256, 'warm_up_epochs': 20, 'LR': 0.01}
+one-class
+Run 1:  Anomaly type anom_2_ AuPR: 0.549052
+Run 1:  Anomaly type anom_3_ AuPR: 0.549483
+Run 2:  Anomaly type anom_2_ AuPR: 0.534098
+Run 2:  Anomaly type anom_3_ AuPR: 0.533186
+Run 3:  Anomaly type anom_2_ AuPR: 0.449706
+Run 3:  Anomaly type anom_3_ AuPR: 0.451277
+Run 4:  Anomaly type anom_2_ AuPR: 0.663662
+Run 4:  Anomaly type anom_3_ AuPR: 0.663374
+Run 5:  Anomaly type anom_2_ AuPR: 0.477449
+Run 5:  Anomaly type anom_3_ AuPR: 0.479334
+Mean AuPR over runs 5 | anom_2_ | 0.534793 Std 0.07394
+ Details [0.5490521844182672, 0.5340975692133197, 0.44970568857008947, 0.6636623061330474, 0.4774488523362586]
+Mean AuPR over runs 5 | anom_3_ | 0.535331 Std 0.07321
+ Details [0.5494825703840702, 0.533186318340286, 0.45127736979345234, 0.6633739407324877, 0.47933414386748624]

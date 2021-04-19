@@ -1,0 +1,5 @@
+Log start :: 2021-04-07 13:16:10.506233
+2021-04-07 13:16:10.506365| Time stamp 1617815770.5063713
+us_import2
+Run 1:  Anomaly type anom_2_ AuPR: 1.000000
+Run 1:  Anomaly type anom_3_ AuPR: 1.000000

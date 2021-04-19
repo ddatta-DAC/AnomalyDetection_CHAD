@@ -41,10 +41,10 @@ def get_data(
 
         for i in range(0,num_anom_sets):
             _df = anom_2_data.sample(n=anom_size)
-            df_dict['anom_2' + str(i)] = _df
+            df_dict['anom_2_' + str(i)] = _df
         for i in range(0,num_anom_sets):
             _df = anom_3_data.sample(n=anom_size)
-            df_dict['anom_3' + str(i)] = _df
+            df_dict['anom_3_' + str(i)] = _df
     else:
         train_df = pd.read_csv(os.path.join(DATA_LOC, 'train_scaled_01.csv'), index_col=None)
         test_df = pd.read_csv(os.path.join(DATA_LOC, 'test_scaled_01.csv'), index_col=None)
@@ -58,11 +58,11 @@ def get_data(
         }
         for i in range(0,num_anom_sets):
             _df = anom_data_2.sample(n=anom_size)
-            df_dict['anom_2' + str(i+1)] = _df
+            df_dict['anom_2_' + str(i+1)] = _df
             
         for i in range(0,num_anom_sets):
             _df = anom_data_2.sample(n=anom_size)
-            df_dict['anom_3' + str(i+1)] = _df    
+            df_dict['anom_3_' + str(i+1)] = _df    
     meta_data = pd.read_csv(
         os.path.join(DATA_LOC, 'data_dimensions.csv'),
         index_col=None,

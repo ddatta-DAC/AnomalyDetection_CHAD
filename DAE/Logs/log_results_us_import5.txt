@@ -1,0 +1,61 @@
+Log start :: 2021-04-07 14:33:43.868963
+2021-04-07 14:33:43.869111| Time stamp 1617820423.8691187
+us_import5
+Run 1:  Anomaly type anom_2_ AuPR: 0.544351
+Run 1:  Anomaly type anom_3_ AuPR: 0.543753
+Run 2:  Anomaly type anom_2_ AuPR: 0.302905
+Run 2:  Anomaly type anom_3_ AuPR: 0.304073
+Run 3:  Anomaly type anom_2_ AuPR: 0.329516
+Run 3:  Anomaly type anom_3_ AuPR: 0.311475
+Run 4:  Anomaly type anom_2_ AuPR: 0.530676
+Run 4:  Anomaly type anom_3_ AuPR: 0.561265
+Run 5:  Anomaly type anom_2_ AuPR: 0.302642
+Run 5:  Anomaly type anom_3_ AuPR: 0.303384
+Mean AuPR over 5 runs | anom_2_ |  0.402018  Std 0.11115
+ Details [0.5443514987427058, 0.30290461034201244, 0.32951550908362903, 0.5306763389046372, 0.30264201186036155]
+Mean AuPR over 5 runs | anom_3_ |  0.404790  Std 0.12077
+ Details [0.5437533212962945, 0.3040731325804412, 0.3114752290095993, 0.5612648498968082, 0.30338436911456945]
+Log start :: 2021-04-07 15:51:47.092517
+2021-04-07 15:51:47.092673| Time stamp 1617825107.092678
+us_import5
+Run 1:  Anomaly type anom_2_ AuPR: 0.336845
+Run 1:  Anomaly type anom_3_ AuPR: 0.333073
+Run 2:  Anomaly type anom_2_ AuPR: 0.337920
+Run 2:  Anomaly type anom_3_ AuPR: 0.334985
+Run 3:  Anomaly type anom_2_ AuPR: 0.305871
+Run 3:  Anomaly type anom_3_ AuPR: 0.304662
+Run 4:  Anomaly type anom_2_ AuPR: 0.339487
+Run 4:  Anomaly type anom_3_ AuPR: 0.332312
+Run 5:  Anomaly type anom_2_ AuPR: 0.404549
+Run 5:  Anomaly type anom_3_ AuPR: 0.505790
+Mean AuPR over 5 runs | anom_2_ |  0.344934  Std 0.03232
+ Details [0.3368453372199396, 0.3379197651813114, 0.30587065234746896, 0.3394866312454269, 0.40454931262646704]
+Mean AuPR over 5 runs | anom_3_ |  0.362165  Std 0.07268
+ Details [0.3330731872897391, 0.33498521196626896, 0.3046619629448112, 0.33231188887857743, 0.5057903208752927]
+Log start :: 2021-04-07 17:30:26.385154
+2021-04-07 17:30:26.385871| Time stamp 1617831026.385887
+us_import5
+Run 1:  Anomaly type anom_2_ AuPR: 0.303280
+Run 1:  Anomaly type anom_3_ AuPR: 0.301274
+Run 2:  Anomaly type anom_2_ AuPR: 0.301881
+Run 2:  Anomaly type anom_3_ AuPR: 0.303588
+Run 3:  Anomaly type anom_2_ AuPR: 0.337814
+Run 3:  Anomaly type anom_3_ AuPR: 0.337259
+Run 4:  Anomaly type anom_2_ AuPR: 0.301204
+Run 4:  Anomaly type anom_3_ AuPR: 0.303383
+Run 5:  Anomaly type anom_2_ AuPR: 0.336305
+Run 5:  Anomaly type anom_3_ AuPR: 0.338582
+Run 6:  Anomaly type anom_2_ AuPR: 0.334667
+Run 6:  Anomaly type anom_3_ AuPR: 0.334444
+Run 7:  Anomaly type anom_2_ AuPR: 0.338644
+Run 7:  Anomaly type anom_3_ AuPR: 0.335196
+Run 8:  Anomaly type anom_2_ AuPR: 0.331059
+Run 8:  Anomaly type anom_3_ AuPR: 0.333322
+Run 9:  Anomaly type anom_2_ AuPR: 0.303705
+Run 9:  Anomaly type anom_3_ AuPR: 0.302003
+Run 10:  Anomaly type anom_2_ AuPR: 0.302597
+Run 10:  Anomaly type anom_3_ AuPR: 0.301710
+Mean AuPR over 10 runs | anom_2_ |  0.319116  Std 0.01670
+ Details [0.30328042009073125, 0.3018808324564888, 0.3378142845064656, 0.3012040748957656, 0.33630499428073235, 0.33466690112114217, 0.3386444471659457, 0.3310589246880101, 0.30370465556854154, 0.30259736622346073]
+Mean AuPR over 10 runs | anom_3_ |  0.319076  Std 0.01675
+ Details [0.30127360985292917, 0.3035883217341817, 0.33725924693165155, 0.3033828485556716, 0.3385818402809134, 0.3344438061295303, 0.33519620499493613, 0.33332213287912066, 0.30200261542480505, 0.30171037124986616]

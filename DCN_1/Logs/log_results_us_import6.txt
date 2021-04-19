@@ -1,0 +1,69 @@
+Log start :: 2021-04-07 00:31:57.795381
+2021-04-07 00:31:57.795532| Time stamp 1617769917.795541
+us_import6
+Log start :: 2021-04-07 00:32:41.743125
+2021-04-07 00:32:41.743279| Time stamp 1617769961.743287
+us_import6
+Log start :: 2021-04-07 00:34:15.980192
+2021-04-07 00:34:15.980376| Time stamp 1617770055.9803905
+us_import6
+Log start :: 2021-04-07 00:37:41.666009
+2021-04-07 00:37:41.666196| Time stamp 1617770261.6662018
+us_import6
+Log start :: 2021-04-07 01:00:44.830399
+2021-04-07 01:00:44.830906| Time stamp 1617771644.8309183
+us_import6
+Log start :: 2021-04-07 12:28:33.691480
+2021-04-07 12:28:33.691627| Time stamp 1617812913.6916327
+us_import6
+Log start :: 2021-04-07 23:12:05.347935
+2021-04-07 23:12:05.348063| Time stamp 1617851525.348069
+us_import6
+Log start :: 2021-04-13 12:42:47.979405
+2021-04-13 12:42:47.979574| Time stamp 1618332167.9795825
+us_import6
+Run 1:  Anomaly type anom_2_ AuPR: 0.171568
+Run 1:  Anomaly type anom_3_ AuPR: 0.170412
+Run 2:  Anomaly type anom_2_ AuPR: 0.613962
+Run 2:  Anomaly type anom_3_ AuPR: 0.616429
+Log start :: 2021-04-13 13:53:02.155020
+2021-04-13 13:53:02.155159| Time stamp 1618336382.1551645
+us_import6
+Run 1:  Anomaly type anom_2_ AuPR: 0.260972
+Run 1:  Anomaly type anom_3_ AuPR: 0.259827
+Log start :: 2021-04-13 14:33:21.583806
+2021-04-13 14:33:21.583945| Time stamp 1618338801.5839531
+us_import6
+Run 1:  Anomaly type anom_2_ AuPR: 0.386567
+Run 1:  Anomaly type anom_3_ AuPR: 0.385650
+Log start :: 2021-04-13 15:36:51.475970
+2021-04-13 15:36:51.476445| Time stamp 1618342611.4764597
+us_import6
+Log start :: 2021-04-13 15:50:49.850045
+2021-04-13 15:50:49.850292| Time stamp 1618343449.8503053
+us_import6
+Log start :: 2021-04-13 16:57:18.188391
+2021-04-13 16:57:18.188617| Time stamp 1618347438.188629
+us_import6
+Run 1:  Anomaly type anom_2_ AuPR: 0.602844
+Run 1:  Anomaly type anom_3_ AuPR: 0.603806
+Log start :: 2021-04-14 12:58:16.208135
+2021-04-14 12:58:16.208272| Time stamp 1618419496.2082834
+us_import6
+Log start :: 2021-04-14 16:25:25.639183
+2021-04-14 16:25:25.639481| Time stamp 1618431925.6394951
+us_import6
+Run 1:  Anomaly type anom_2_ AuPR: 0.194231
+Run 1:  Anomaly type anom_3_ AuPR: 0.195996
+Run 2:  Anomaly type anom_2_ AuPR: 0.622003
+Run 2:  Anomaly type anom_3_ AuPR: 0.622456
+Run 3:  Anomaly type anom_2_ AuPR: 0.191524
+Run 3:  Anomaly type anom_3_ AuPR: 0.192018
+Run 4:  Anomaly type anom_2_ AuPR: 0.618171
+Run 4:  Anomaly type anom_3_ AuPR: 0.616344
+Run 5:  Anomaly type anom_2_ AuPR: 0.363511
+Run 5:  Anomaly type anom_3_ AuPR: 0.365506
+Mean AuPR over 5 runs | anom_2_ |  0.397888  Std 0.19183
+ Details [0.1942311965677801, 0.6220028339516306, 0.19152352091766822, 0.6181707925727667, 0.36351132344877446]
+Mean AuPR over 5 runs | anom_3_ |  0.398464  Std 0.19097
+ Details [0.1959962939839835, 0.6224555238328005, 0.19201764737827923, 0.6163436983867124, 0.3655058465488955]
