@@ -90,8 +90,8 @@ def create_config(
     decoder_structure_config['num_discrete'] = num_discrete_columns
     decoder_structure_config['num_real'] = num_real_columns
     decoder_structure_config['decoder_layers'] = {
-        'activation': config[data_set]['decoder_layers']['activation'],
-        'layer_dims': [latent_dim] + config[data_set]['decoder_layers']['layer_dims'] + [final_op_dims]
+        'activation': config['decoder_layers']['activation'],
+        'layer_dims': [latent_dim] + config['decoder_layers']['layer_dims'] + [final_op_dims]
     }
     decoder_structure_config['final_output_dim'] = final_op_dims
 
@@ -99,10 +99,10 @@ def create_config(
     # GMM
     # =====================
     gmm_input_dims = latent_dim + 2
-    activation = config[data_set]['gmm']['FC_layer']['activation']
-    num_components = config[data_set]['gmm']['num_components']
-    FC_layer_dims = [gmm_input_dims] + config[data_set]['gmm']['FC_layer']['dims'] + [num_components]
-    FC_dropout = config[data_set]['gmm']['FC_dropout']
+    activation = config['gmm']['FC_layer']['activation']
+    num_components = config['gmm']['num_components']
+    FC_layer_dims = [gmm_input_dims] + config['gmm']['FC_layer']['dims'] + [num_components]
+    FC_dropout = config['gmm']['FC_dropout']
     gmm_structure_config = {
         'num_components': num_components,
         'FC_layer_dims': FC_layer_dims,
