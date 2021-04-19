@@ -4,5 +4,6 @@ layer_dims:
   - 32
 anomaly_ratio : 0.25
 num_anomaly_sets : 5
-epochs_1: 75
-epochs_2: 25
+epochs_1: 20
+epochs_2: 75
+learning_rate: 0.01

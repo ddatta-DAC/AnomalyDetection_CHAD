@@ -1,0 +1,20 @@
+Log start :: 2021-04-07 12:05:17.987610
+2021-04-07 12:05:17.987747| Time stamp 1617811517.9877536
+us_import1
+Log start :: 2021-04-07 12:11:33.043489
+2021-04-07 12:11:33.043638| Time stamp 1617811893.043645
+us_import1
+Run 1:  Anomaly type anom_2_ AuPR: 1.000000
+Run 1:  Anomaly type anom_3_ AuPR: 1.000000
+Run 2:  Anomaly type anom_2_ AuPR: 1.000000
+Run 2:  Anomaly type anom_3_ AuPR: 1.000000
+Run 3:  Anomaly type anom_2_ AuPR: 1.000000
+Run 3:  Anomaly type anom_3_ AuPR: 1.000000
+Run 4:  Anomaly type anom_2_ AuPR: 1.000000
+Run 4:  Anomaly type anom_3_ AuPR: 1.000000
+Run 5:  Anomaly type anom_2_ AuPR: 1.000000
+Run 5:  Anomaly type anom_3_ AuPR: 1.000000
+Mean AuPR over 5 runs | anom_2_ |  1.000000  Std 0.00000
+ Details [1.0, 1.0, 1.0, 1.0, 1.0]
+Mean AuPR over 5 runs | anom_3_ |  1.000000  Std 0.00000
+ Details [1.0, 1.0, 1.0, 1.0, 1.0]

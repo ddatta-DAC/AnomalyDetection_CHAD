@@ -38,27 +38,34 @@ EPSILON = math.pow(10, -6)
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print('Current device  >> ', DEVICE)
 print('=========================== ')
+ID_COL = 'PanjivaRecordID'
 
 def train_model(
     DATA_SET,
     data_dict,
     config
 ):
+    global ID_COL
+
     layer_dims = config['layer_dims']
     train_df = data_dict['train']
+    try:
+        del train_df[ID_COL]
+    except:
+        pass
     train_X = train_df.values
     data_dim = train_X.shape[1]
 
     epochs_1 = config['epochs_1']
     epochs_2 = config['epochs_2']
-
+    learning_rate = config['epochs_2']
     dae_obj = StackedAE(
         DEVICE,
         data_dim,
         layer_dims,  # Provide the half (encoder only)
         op_activation='sigmoid',
-        layer_activation='tanh',
-        dropout=0.2,
+        layer_activation='relu',
+        dropout=0.1,
         LR=0.05,
         num_epochs_1=epochs_1,
         num_epochs_2=epochs_2,
@@ -68,7 +75,6 @@ def train_model(
         checkpoint_dir=DATA_SET,
     )
     dae_obj.train_model(train_X)
-
     return dae_obj
 
 def test_eval(
@@ -76,7 +82,12 @@ def test_eval(
     data_dict,
     num_anomaly_sets
 ):
-    test_X = data_dict['test'].values
+    test_df = data_dict['test']
+    try:
+        del test_df[ID_COL]
+    except:
+        pass
+    test_X = test_df.values
     test_labels = [0 for _ in range(test_X.shape[0])]
     test_scores = dae_obj.score_samples(test_X)
 
@@ -85,7 +96,12 @@ def test_eval(
         auc_list = []
         for idx in range(num_anomaly_sets):
             key = anomaly_key + str(idx+1)
-            anom_X = data_dict[key].values
+            anom_df = data_dict[key]
+            try:
+                del anom_df[ID_COL]
+            except:
+                pass
+            anom_X = anom_df.values
             anom_labels = [1 for _ in range(anom_X.shape[0])]
             anom_scores = dae_obj.score_samples(anom_X)
 
@@ -155,7 +171,7 @@ parser.add_argument(
     type=str,
     help=' Which data set ?',
     default=None,
-    choices=['kddcup', 'kddcup_neptune', 'nsl_kdd', 'nb15', 'gureKDD']
+    choices=['us_import1', 'us_import2','us_import3', 'us_import4','us_import5', 'us_import6']
 )
 
 parser.add_argument(

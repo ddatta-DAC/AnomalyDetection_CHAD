@@ -1,0 +1,13 @@
+Log start :: 2021-04-14 13:38:15.710539
+2021-04-14 13:38:15.710717| Time stamp 1618421895.7107258
+us_import2
+Run 1:  Anomaly type anom_2_ AuPR: 0.583249
+Run 1:  Anomaly type anom_3_ AuPR: 0.583759
+Run 2:  Anomaly type anom_2_ AuPR: 0.579566
+Run 2:  Anomaly type anom_3_ AuPR: 0.577939
+Run 3:  Anomaly type anom_2_ AuPR: 0.593510
+Run 3:  Anomaly type anom_3_ AuPR: 0.592244
+Run 4:  Anomaly type anom_2_ AuPR: 0.578247
+Run 4:  Anomaly type anom_3_ AuPR: 0.578801
+Run 5:  Anomaly type anom_2_ AuPR: 0.591520
+Run 5:  Anomaly type anom_3_ AuPR: 0.593011
