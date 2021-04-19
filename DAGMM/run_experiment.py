@@ -267,7 +267,8 @@ def test(
     for anomaly_key in ['anom_2_']:
         auc_list = []
         for idx in range(num_anomaly_sets):
-            key = 'anom_' + str(idx)
+            key = anomaly_key + str(idx + 1)
+            
             anom_df = data_dict[key]
             try:
                 del anom_df[ID_COL]
