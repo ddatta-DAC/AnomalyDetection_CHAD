@@ -11,13 +11,13 @@ decoder_layers:
     - 32
     - 128
     - 512
-  gmm:
-    num_components: 3
-    FC_layer:
-      dims:
-        - 16
-      activation: 'tanh'
-    FC_dropout: 0.5
+gmm:
+  num_components: 3
+  FC_layer:
+    dims:
+      - 16
+    activation: 'tanh'
+  FC_dropout: 0.5
 
 anomaly_ratio : 0.25
 num_anomaly_sets : 5
