@@ -71,8 +71,8 @@ def create_config(
     encoder_structure_config['num_discrete'] = num_discrete_columns
     encoder_structure_config['num_real'] = num_real_columns
     encoder_structure_config['encoder_layers'] = {
-        'activation': config[data_set]['encoder_layers']['activation'],
-        'layer_dims': config[data_set]['encoder_layers']['layer_dims'] + [latent_dim]
+        'activation': config['encoder_layers']['activation'],
+        'layer_dims': config['encoder_layers']['layer_dims'] + [latent_dim]
     }
 
     # ======================================================
